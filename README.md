@@ -1,61 +1,86 @@
 # 🎓 Academic Stack Planner (n8n Workflow)
 
-This project is an **n8n workflow** that generates a customized 6-month academic roadmap for B.Tech/BCA students based on their tech stack preferences, and schedules them via Gmail and Google Calendar. It uses **Google Gemini API** to generate semester-specific HTML roadmaps.
+This project is an **automated academic planning tool** built with **n8n**, designed to generate a personalized semester-specific roadmap for students pursuing **B.Tech / B.S** or **BCA**. It uses **Google Gemini API** to intelligently construct HTML roadmaps and automatically sends them via Gmail and schedules tasks into **Google Calendar**.
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
-- 📋 Interactive form to collect student details and preferences
-- 🧠 Gemini-powered roadmap generation using HTML format
-- 📧 Sends the generated roadmap to the user’s email
-- 📆 Automatically creates tasks as Google Calendar events
-- 🛠️ Minimal setup, fully customizable in n8n
-
----
-
-## 🛠 How It Works
-
-1. The user fills out a form with discipline, year, stack, and skill level.
-2. Gemini API returns an HTML-formatted semester roadmap.
-3. A Code node extracts and processes this HTML into clean text.
-4. Another Code node converts the text into dated tasks across the semester.
-5. Gmail node sends the roadmap.
-6. Google Calendar node schedules roadmap tasks evenly over the semester.
+- 🗓️ Builds a 6-month academic roadmap for the chosen tech stack (AI/ML, Full Stack, Cybersecurity, etc.)
+- ✉️ Automatically emails a personalized plan in HTML format
+- 📆 Adds each roadmap task to your Google Calendar
+- ⚡ Parses HTML output and converts it into structured calendar events
+- ✅ Fully customizable and extensible in n8n's visual editor
 
 ---
 
-## 🔑 Required Setup
+## ⚙️ How It Works
 
-- **Gmail OAuth2 Credentials** for sending emails
-- **Google Calendar OAuth2 Credentials** for event creation
-- **Google Gemini API Key** for roadmap generation (via Google AI Studio)
-
----
-
-## 📂 How to Use
-
-1. Import the JSON file in your n8n editor.
-2. Configure your Gmail, Calendar, and Gemini credentials.
-3. Activate the workflow.
-4. Share the form link and start generating plans!
+1. Student fills a form with name, year, stack, level, etc.
+2. Gemini AI generates a clean HTML-based semester roadmap
+3. A code node extracts the email and HTML body for Gmail
+4. Another code node splits roadmap into timed tasks over the semester
+5. Gmail sends the email with the roadmap
+6. Google Calendar schedules each task evenly across 6 months
 
 ---
 
-## 📧 Default Email Fallback
+## 📁 Setup Instructions
 
-If the user email is not detected, fallback email used: `krishnabhatia09@gmail.com`
+### 🧠 Step 1: Import the Workflow
+
+1. Clone this repository or download `academic_stack_planner_email_updated.json`
+2. Open your local or cloud **n8n** instance
+3. Go to **Workflows → Import**
+4. Paste or upload the workflow JSON
+
+### 🔐 Step 2: Set Required Credentials
+
+| Service           | Type              | Scope                                      |
+|-------------------|-------------------|---------------------------------------------|
+| Gmail             | Gmail OAuth2      | `https://www.googleapis.com/auth/gmail.send` |
+| Google Calendar   | Calendar OAuth2   | `https://www.googleapis.com/auth/calendar`   |
+| Gemini AI         | API Key / Gemini  | Use Google AI Studio                        |
 
 ---
 
-## 📁 File Structure
+## 🧪 Sample Input Form
 
-- `academic_stack_planner.json` – The core n8n workflow
-- `README.md` – Project documentation
+```json
+{
+  "Enter is your name?": "Krishna",
+  "Enter is your discipline of study?": "B.Tech / B.S",
+  "Enter year are you in?": "3",
+  "Which stack would you like the roadmap to be on?": "AI/ML",
+  "Enter is your current level of understanding?": "Intermediate",
+  "Briefly describe your current skills (only keywords)?": "Python, ML basics",
+  "Enter is your email id?": "krishnabhatia09@gmail.com"
+}
+```
 
 ---
 
-## 🔒 Notes
+## 🛠 Notes
 
-- This project stores no user data persistently.
-- Tasks are evenly spaced between **July 15 – November 15** by default.
+- Email ID fallback is set to `krishnabhatia09@gmail.com` if not extracted automatically.
+- Semester duration is July 15 – Nov 15 (can be edited in Code node).
+- Works well with hosted n8n or self-hosted instance.
+- Highly adaptable for other educational use cases.
+
+---
+
+## 📌 Status
+
+✅ Ready to use  
+🧠 Gemini AI included  
+📅 Calendar Automation included  
+📤 Gmail sending configured
+
+---
+
+## 📂 File
+
+This repo contains:
+
+- `academic_stack_planner_email_updated.json` — n8n workflow export file
+- `README.md` — this documentation
